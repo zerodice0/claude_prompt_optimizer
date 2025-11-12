@@ -2,7 +2,7 @@
 
 # Claude Prompt Optimizer 설치 스크립트
 # 작성자: zerodice0
-# 버전: 1.0.1
+# 버전: 1.1.0
 
 set -e # 에러 발생 시 스크립트 중단
 
