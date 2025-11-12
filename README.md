@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Claude Skills](https://img.shields.io/badge/Claude-Skills-blue.svg)](https://claude.ai/skills)
-[![Version](https://img.shields.io/badge/Version-1.0.0-green.svg)](https://github.com/zerodice0/claude_prompt_optimizer/releases)
+[![Version](https://img.shields.io/badge/Version-1.0.1-green.svg)](https://github.com/zerodice0/claude_prompt_optimizer/releases)
 
 Claude 4 프롬프트 최적화 가이드를 기반으로 사용자 프롬프트를 자동으로 분석하고 개선하여 **30-50% 토큰 효율성**을 향상시키는 전문 Claude Skills 플러그인입니다.
 
@@ -38,7 +38,17 @@ Claude 4 프롬프트 최적화 가이드를 기반으로 사용자 프롬프트
 1. **Claude Code Slash Commands** - 로컬 개발 및 즉시 사용
 2. **Claude Skills** - 마켓플레이스 배포 및 공유
 
-### 방법 1: Claude Code Slash Commands (로컬, 즉시 사용 가능)
+### 방법 1: 자동 설치 스크립트 (권장)
+
+```bash
+# 자동 설치 스크립트 실행
+curl -fsSL https://raw.githubusercontent.com/zerodice0/claude_prompt_optimizer/main/install.sh | bash
+
+# 또는 wget 사용
+wget -qO- https://raw.githubusercontent.com/zerodice0/claude_prompt_optimizer/main/install.sh | bash
+```
+
+### 방법 2: Claude Code Slash Commands (수동 설치)
 
 현재 디렉토리에서 바로 사용:
 
@@ -56,14 +66,14 @@ cd claude_prompt_optimizer
 - `/analyze-prompt` - 프롬프트 분석 및 7원칙 평가
 - `/optimize-prompt` - 프롬프트 자동 최적화 및 개선
 
-### 방법 2: Claude Skills (마켓플레이스, 준비 중)
+### 방법 3: Claude Skills (마켓플레이스, 준비 중)
 
 ```bash
 # Claude에서 다음 명령어 실행 (향후 제공 예정)
 /skills install prompt-optimizer
 ```
 
-### 방법 3: 수동 설치 (Skills)
+### 방법 4: 수동 설치 (Skills)
 ```bash
 # ~/.claude/skills 디렉토리로 이동
 cd ~/.claude/skills
