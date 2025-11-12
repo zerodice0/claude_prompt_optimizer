@@ -7,7 +7,10 @@
       "mcp__context7__resolve-library-id",
       "mcp__context7__get-library-docs",
       "Bash(test:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "mcp__codex__ask",
+      "WebFetch(domain:cookbook.openai.com)",
+      "Bash(tree:*)"
     ],
     "deny": [],
     "ask": []

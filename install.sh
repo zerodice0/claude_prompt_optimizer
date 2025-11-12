@@ -19,7 +19,7 @@ cat <<"EOF"
 ╔═══════════════════════════════════════════════════════╗
 ║   Claude Prompt Optimizer                            ║
 ║   7원칙 기반 프롬프트 최적화 도구                      ║
-║   v1.0.1                                             ║
+║   v1.1.1                                             ║
 ╚═══════════════════════════════════════════════════════╝
 EOF
 echo -e "${NC}"
@@ -187,9 +187,72 @@ print(f'📊 최적화 토큰: {result[\"optimized_tokens\"]}')
 ```
 EOF
 
+  # GPT-5 커맨드 디렉토리 생성
+  COMMANDS_GPT5_DIR="$HOME/.claude/commands/prompt"
+  mkdir -p "$COMMANDS_GPT5_DIR"
+
+  # analyze-gpt5-prompt.md 생성
+  cat >"$COMMANDS_GPT5_DIR/analyze-gpt5-prompt.md" <<'EOF'
+# GPT-5 Prompt Analysis
+
+Execute the following Python script to analyze the prompt using GPT-5 patterns:
+
+```bash
+python3 -c "
+import sys
+sys.path.insert(0, '$HOME/.claude/skills/prompt-optimizer')
+from scripts.gpt5_core import analyze_prompt
+
+prompt_text = ' '.join(sys.argv[1:]) if len(sys.argv) > 1 else sys.stdin.read()
+result = analyze_prompt(prompt_text)
+
+print(result)
+" "$@"
+```
+EOF
+
+  # optimize-gpt5-prompt.md 생성
+  cat >"$COMMANDS_GPT5_DIR/optimize-gpt5-prompt.md" <<'EOF'
+# GPT-5 Prompt Optimization
+
+Execute the following Python script to optimize the prompt using GPT-5 patterns:
+
+```bash
+python3 -c "
+import sys
+sys.path.insert(0, '$HOME/.claude/skills/prompt-optimizer')
+from scripts.gpt5_core import analyze_and_optimize_prompt
+
+args = sys.argv[1:]
+include_analysis = '--include-analysis' in args
+simple_mode = '--simple' in args
+args = [arg for arg in args if not arg.startswith('--')]
+
+prompt_text = ' '.join(args) if args else sys.stdin.read()
+
+if simple_mode:
+    from scripts.gpt5_core import GPT5Engine
+    engine = GPT5Engine()
+    result = engine.optimize(prompt_text)
+    print('✅ 최적화된 프롬프트:')
+    print('=' * 80)
+    print(result.optimized_prompt)
+    print()
+    print('🎯 권장 파라미터:')
+    for key, value in result.parameter_config.items():
+        print(f'  {key}: {value}')
+else:
+    result = analyze_and_optimize_prompt(prompt_text, include_analysis=include_analysis)
+    print(result)
+" "$@"
+```
+EOF
+
   echo -e "${GREEN}✓ 전역 slash commands 설정 완료${NC}"
-  echo -e "${GREEN}  - /analyze-prompt${NC}"
-  echo -e "${GREEN}  - /optimize-prompt${NC}"
+  echo -e "${GREEN}  - /analyze-prompt (Claude 4)${NC}"
+  echo -e "${GREEN}  - /optimize-prompt (Claude 4)${NC}"
+  echo -e "${GREEN}  - /analyze-gpt5-prompt (GPT-5)${NC}"
+  echo -e "${GREEN}  - /optimize-gpt5-prompt (GPT-5)${NC}"
 fi
 
 # 설치 완료

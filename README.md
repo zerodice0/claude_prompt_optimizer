@@ -2,9 +2,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Claude Skills](https://img.shields.io/badge/Claude-Skills-blue.svg)](https://claude.ai/skills)
-[![Version](https://img.shields.io/badge/Version-1.0.1-green.svg)](https://github.com/zerodice0/claude_prompt_optimizer/releases)
+[![Version](https://img.shields.io/badge/Version-1.2.0-green.svg)](https://github.com/zerodice0/claude_prompt_optimizer/releases)
 
-Claude 4 프롬프트 최적화 가이드를 기반으로 사용자 프롬프트를 자동으로 분석하고 개선하여 **30-50% 토큰 효율성**을 향상시키는 전문 Claude Skills 플러그인입니다.
+**Claude 4 + GPT-5** 프롬프트 최적화 가이드를 기반으로 사용자 프롬프트를 자동으로 분석하고 개선하여 **30-60% 토큰 효율성**을 향상시키는 전문 프롬프트 최적화 도구입니다.
 
 ## ✨ 주요 기능
 
@@ -30,6 +30,113 @@ Claude 4 프롬프트 최적화 가이드를 기반으로 사용자 프롬프트
 ✅ 최적화: [개선된 프롬프트]
 📊 7원칙 평가: ⭐⭐⭐⭐⭐ (각 항목별 점수)
 🎯 토큰 효율: 45% 절감 (1,234 → 678 토큰)
+```
+
+## 🆕 GPT-5 최적화 (v1.2.0 신규)
+
+[GPT-5 Prompting Guide](https://cookbook.openai.com/examples/gpt-5/gpt-5_prompting_guide) 기반의 전문 최적화 기능을 추가했습니다!
+
+### 🎯 GPT-5 특화 기능
+
+#### 1. 모순 탐지 및 제거 ⚠️
+GPT-5는 모순에 매우 민감합니다. 자동으로 모순을 탐지하고 수정합니다.
+
+**예시:**
+- ❌ "Never proceed without confirmation but also auto-schedule immediately"
+- ✅ "Only schedule after obtaining confirmation, except in emergency situations"
+
+#### 2. Agentic Workflow 최적화 🤖
+- **자율성 제어**: Low/Medium/High eagerness 패턴 자동 적용
+- **도구 프리앰블**: 사용자 목표 재구성, 진행 상황 업데이트
+- **Escape Hatches**: 불확실성 처리 방법 명시
+
+#### 3. 파라미터 자동 추천 🎛️
+- **reasoning_effort**: 복잡도 기반 자동 추천 (low/medium/high)
+- **verbosity**: 응답 스타일 최적화 (low/medium/high)
+- **모델 선택**: 작업 특성에 맞는 모델 추천
+
+#### 4. XML 구조화 📋
+명확한 계층 구조로 프롬프트를 자동 변환:
+```xml
+<instruction_spec>
+  <tool_preambles>
+    - 사용자 목표를 친근하게 재구성
+    - 구조화된 계획 작성
+  </tool_preambles>
+  <persistence>
+    - 완전히 해결될 때까지 계속
+  </persistence>
+  <escape_hatches>
+    - 70% 확신이면 진행 허용
+  </escape_hatches>
+</instruction_spec>
+```
+
+#### 5. Anti-Pattern 자동 수정 🔧
+- 과도한 철저함 강조 제거
+- 애매한 도구 정의 명확화
+- 컨텍스트 수집 균형화
+
+### 💡 GPT-5 vs Claude 4 비교
+
+| 특성 | Claude 4 | GPT-5 |
+|------|---------|-------|
+| **초점** | 7원칙 기반 명확성 | Agentic workflow, 모순 제거 |
+| **최적화** | 토큰 효율성 | 자율성, 명령 정확성 |
+| **구조** | 자유 형식 | XML 구조화 권장 |
+| **파라미터** | N/A | reasoning_effort, verbosity |
+| **도구 사용** | 일반적 | 프리앰블 필수 |
+| **모순 처리** | 일반 분석 | 치명적 - 자동 탐지/수정 |
+
+### 🚀 GPT-5 Slash Commands
+
+#### 분석
+```bash
+# GPT-5 특화 분석
+/analyze-gpt5-prompt "Create a web application with authentication"
+```
+
+**출력:**
+```
+📊 분석 점수:
+  • Agentic 구조: 5.0/10
+  • 명확성: 5.0/10
+  • 컨텍스트 효율성: 7.0/10
+  • 도구 프리앰블 품질: 3.0/10
+  • 복잡도: 6.5/10
+
+🎯 추천 파라미터:
+  • reasoning_effort: medium
+  • verbosity: medium
+
+⚠️  감지된 모순: 0개
+```
+
+#### 최적화
+```bash
+# GPT-5 최적화
+/optimize-gpt5-prompt "Build a REST API"
+
+# 분석 결과 포함
+/optimize-gpt5-prompt "Implement dashboard" --include-analysis
+
+# 간단한 출력 (최적화된 프롬프트만)
+/optimize-gpt5-prompt "Create auth system" --simple
+```
+
+**출력:**
+```
+🔧 적용된 개선사항:
+  1. 모순 제거 및 통합
+  2. XML 구조 생성
+  3. 도구 프리앰블 추가
+  4. Agentic 패턴 적용: medium_eagerness
+  5. Verbosity 최적화: 균형잡힌 응답
+
+🎯 권장 파라미터:
+  reasoning_effort: medium
+  verbosity: medium
+  model: gpt-4
 ```
 
 ## 🚀 설치 방법
@@ -63,8 +170,10 @@ cd claude_prompt_optimizer
 ```
 
 **사용 가능한 Slash Commands**:
-- `/analyze-prompt` - 프롬프트 분석 및 7원칙 평가
-- `/optimize-prompt` - 프롬프트 자동 최적화 및 개선
+- `/analyze-prompt` - Claude 4: 프롬프트 분석 및 7원칙 평가
+- `/optimize-prompt` - Claude 4: 프롬프트 자동 최적화 및 개선
+- `/analyze-gpt5-prompt` - GPT-5: 모순 탐지, Agentic 구조 평가
+- `/optimize-gpt5-prompt` - GPT-5: XML 구조화, 파라미터 추천
 
 ### 방법 3: Claude Skills (마켓플레이스, 준비 중)
 
@@ -87,6 +196,8 @@ git clone https://github.com/zerodice0/claude_prompt_optimizer.git
 ### A. Claude Code Slash Commands 사용법
 
 #### 1. 프롬프트 분석
+
+**Claude 4 분석:**
 ```bash
 # 기본 분석
 /analyze-prompt "코드 리뷰를 부탁드립니다"
@@ -95,7 +206,15 @@ git clone https://github.com/zerodice0/claude_prompt_optimizer.git
 /analyze-prompt "블로그 글을 써줘" --domain=content
 ```
 
+**GPT-5 분석 (v1.1.1+):**
+```bash
+# GPT-5 특화 분석
+/analyze-gpt5-prompt "Create a web application with authentication"
+```
+
 #### 2. 프롬프트 최적화
+
+**Claude 4 최적화:**
 ```bash
 # 기본 최적화
 /optimize-prompt "API를 만들어줘"
@@ -104,7 +223,21 @@ git clone https://github.com/zerodice0/claude_prompt_optimizer.git
 /optimize-prompt "데이터를 분석해줘" --optimization_level=aggressive
 ```
 
+**GPT-5 최적화 (v1.1.1+):**
+```bash
+# 기본 최적화 (분석 포함)
+/optimize-gpt5-prompt "Build a chatbot with memory"
+
+# 분석 없이 최적화만
+/optimize-gpt5-prompt "Build a chatbot" --simple
+
+# 분석 포함 최적화
+/optimize-gpt5-prompt "Analyze code quality" --include-analysis
+```
+
 #### 3. Python API 직접 사용
+
+**Claude 4 API:**
 ```python
 from scripts import analyze_prompt, optimize_prompt
 
@@ -115,6 +248,25 @@ print(result['summary'])
 # 최적화
 result = optimize_prompt("블로그 글을 써줘", domain="content")
 print(result['optimized_prompt'])
+```
+
+**GPT-5 API (v1.1.1+):**
+```python
+from scripts.gpt5_core import analyze_prompt, analyze_and_optimize_prompt, GPT5Engine
+
+# GPT-5 분석
+result = analyze_prompt("Create a web application")
+print(result)
+
+# GPT-5 최적화 (분석 + 최적화)
+result = analyze_and_optimize_prompt("Build a chatbot", include_analysis=True)
+print(result)
+
+# GPT-5 엔진 직접 사용
+engine = GPT5Engine()
+optimized = engine.optimize("Analyze code quality")
+print(optimized.optimized_prompt)
+print(optimized.parameter_config)
 ```
 
 ### B. Claude Skills 사용법 (자동 최적화)
