@@ -1,0 +1,116 @@
+{
+  "domain": "content",
+  "description": "콘텐츠 제작 관련 프롬프트 패턴",
+  "keywords": ["글", "블로그", "콘텐츠", "기사", "소셜", "미디어", "작성", "에세이", "카피라이팅"],
+  "roles": {
+    "content_expert": "콘텐츠 전문가로서",
+    "professional_writer": "전문 작가로서",
+    "content_strategist": "콘텐츠 전략가로서",
+    "editor": "전문 에디터로서",
+    "content_creator": "콘텐츠 크리에이터로서",
+    "seo_specialist": "SEO 전문가로서",
+    "journalist": "저널리스트로서",
+    "technical_writer": "기술 작가로서"
+  },
+  "intents": {
+    "create": {
+      "name": "콘텐츠 생성",
+      "keywords": ["만들", "생성", "작성", "제작", "글", "글쓰기"],
+      "patterns": [
+        "{role} '{title}' 주제의 {content_type}를 작성해주세요. 대상 독자: {audience}. 길이: {length}. 키워드: {keywords}. 톤앤매너: {tone}. 구조: {structure}.",
+        "{role} {platform} 플랫폼용 콘텐츠를 제작해주세요. 주제: {topic}. 대상: {target}. 목적: {purpose}. {engagement_elements} 포함해주세요.",
+        "{role} {topic}에 대한 {format}을 작성해주세요. {target_audience} 독자 수준에 맞춰 {writing_style} 스타일로 작성해주세요. {key_points} 핵심 포인트를 포함해주세요."
+      ]
+    },
+    "edit": {
+      "name": "편집/수정",
+      "keywords": ["수정", "편집", "교정", "다듬", "개선"],
+      "patterns": [
+        "{role} 제공된 {content_type}을 {editing_focus} 측면에서 편집해주세요. 독자: {audience}. 목표: {goal}. {specific_requirements} 요구사항을 반영해주세요.",
+        "{role} 다음 글의 가독성과 흐름을 개선해주세요. {problems} 문제점을 해결하고 {style_guide} 스타일 가이드에 맞춰주세요.",
+        "{role} {document}을 {target_level} 수준으로 수정해주세요. 전문 용어를 쉽게 설명하고 {examples} 예시를 추가해주세요."
+      ]
+    },
+    "plan": {
+      "name": "콘텐츠 계획",
+      "keywords": ["계획", "전략", "캘린더", "로드맵", "아이디어"],
+      "patterns": [
+        "{role} {topic} 주제의 콘텐츠 캘린더를 수립해주세요. 기간: {duration}. {content_pillars} 기둥별로 {frequency} 빈도로 계획해주세요.",
+        "{role} {audience} 타겟을 위한 콘텐츠 전략을 제안해주세요. {goals} 목표 달성을 위해 {content_types} 콘텐츠 종류를 조합해주세요.",
+        "{role} {blog} 블로그의 콘텐츠 아이디어를 {number}개 제안해주세요. {trending_topics} 트렌드 주제와 {evergreen_content} 상시적 콘텐츠를 균형있게 포함해주세요."
+      ]
+    },
+    "optimize": {
+      "name": "최적화",
+      "keywords": ["최적화", "SEO", "성과", "개선", "효율"],
+      "patterns": [
+        "{role} {content}의 {optimization_type}을 최적화해주세요. 현재 성과: {current_metrics}. 목표: {target_metrics}. {tools} 도구를 활용해주세요.",
+        "{role} SEO 관점에서 {article}을 최적화해주세요. {keywords} 키워드를 자연스럽게 포함하고 {meta_data} 메타데이터를 작성해주세요.",
+        "{role} {social_media} 소셜 미디어 콘텐츠의 참여율을 높이는 방법을 제안해주세요. {current_engagement} 현재 참여도를 {target_engagement} 목표까지 개선해주세요."
+      ]
+    },
+    "repurpose": {
+      "name": "콘텐츠 재활용",
+      "keywords": ["재가공", "변환", "재활용", "포맷 변경"],
+      "patterns": [
+        "{role} {source_content} 원본 콘텐츠를 {target_format}으로 재가공해주세요. {platform} 플랫폼 특성을 고려해주세요.",
+        "{role} 하나의 콘텐츠를 {number}가지 다른 형식으로 확장해주세요. {content_distribution} 배포 채널별로 최적화해주세요.",
+        "{role} {evergreen_content} 상시 콘텐츠를 {seasonal_trends} 시즌 트렌드에 맞게 업데이트해주세요."
+      ]
+    }
+  },
+  "contexts": {
+    "seo_focused": "SEO 최적화를 위해",
+    "brand_consistent": "브랜드 일관성을 유지하며",
+    "reader_friendly": "독자가 이해하기 쉽게",
+    "shareable": "공유하기 좋게",
+    "action_driven": "행동을 유도하도록",
+    "educational": "교육적인 목적으로",
+    "entertaining": "재미와 정보를 균형있게",
+    "trust_building": "신뢰를 구축할 수 있도록"
+  },
+  "structures": {
+    "problem_solution": "문제-해결 구조로",
+    "chronological": "시간 순서대로",
+    "compare_contrast": "비교-대조 구조로",
+    "cause_effect": "원인-결과 구조로",
+    "listicle": "목록 형식으로",
+    "how_to": "방법-안내 형식으로",
+    "storytelling": "스토리텔링 형식으로",
+    "pyramid": "피라미드 구조로 (결론부터)"
+  },
+  "platforms": {
+    "blog": "블로그",
+    "instagram": "인스타그램",
+    "youtube": "유튜브",
+    "linkedin": "링크드인",
+    "twitter": "트위터",
+    "facebook": "페이스북",
+    "tiktok": "틱톡",
+    "newsletter": "뉴스레터"
+  },
+  "content_types": {
+    "blog_post": "블로그 글",
+    "article": "기사",
+    "social_media_post": "소셜 미디어 게시물",
+    "email_newsletter": "이메일 뉴스레터",
+    "video_script": "영상 스크립트",
+    "podcast_script": "팟캐스트 스크립트",
+    "whitepaper": "백서",
+    "case_study": "사례 연구"
+  },
+  "examples": {
+    "blog_post": {
+      "original": "AI 업무 자동화에 대한 블로그 글 써줘",
+      "optimized": "전문 작가로서 'AI 업무 자동화로 워라이프밸 변화하기' 주제의 블로그 글을 작성해주세요. 대상 독자: IT 관리자. 길이: 1500자. 키워드: AI 자동화, 업무 효율, 워라이프밸. 톤앤매너: 전문적이지만 접근하기 쉽게. 구조: 문제 제기 → 해결책 → 실제 사례 → 실행 가이드 → 미래 전망. 실제 적용 가능한 팁 3가지를 포함해주세요."
+    },
+    "social_media": {
+      "original": "자기계발 소셜 미디어 포스트 만들어줘",
+      "optimized": "콘텐츠 크리에이터로서 인스타그램용 자기계발 게시물을 작성해주세요. 주제: 아침 루틴 개선. 대상: 2030대 직장인. 목적: 팔로우 참여 유도. 해시태그: #자기계발 #아침루틴 #성장 #동기부여. 짧은 영상과 함께 사용할 수 있도록 작성해주세요. 질문으로 상호작용을 유도하고 행동 촉구를 포함해주세요."
+    },
+    "email_newsletter": {
+      "original": "제품 소개 뉴스레터 써줘",
+      "optimized": "콘텐츠 전문가로서 새로운 프로젝트 관리 도구 출시 안내 이메일 뉴스레터를 작성해주세요. 대상: 기존 가입자. 목적: 신규 기능 소개 및 업그레이드 유도. 톤앤매너: 친근하지만 전문적으로. 구조: 주요 기능 소개 → 기대 효과 → 조기 특별 혜택 → 사용자 후기 → 바로 사용하기 버튼. 개인화된 이름 필드를 포함해주세요."
+    }
+  }
+}

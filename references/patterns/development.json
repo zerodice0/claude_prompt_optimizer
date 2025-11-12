@@ -1,0 +1,112 @@
+{
+  "domain": "development",
+  "description": "개발 프로그래밍 관련 프롬프트 패턴",
+  "keywords": ["코드", "프로그래밍", "개발", "버그", "디버깅", "알고리즘", "아키텍처", "리뷰", "테스트"],
+  "roles": {
+    "senior_developer": "시니어 개발자로서",
+    "code_reviewer": "코드 리뷰 전문가로서",
+    "software_architect": "소프트웨어 아키텍트로서",
+    "debugging_expert": "디버깅 전문가로서",
+    "performance_engineer": "성능 최적화 엔지니어로서",
+    "security_specialist": "보안 전문가로서",
+    "tech_lead": "기술 리드로서",
+    "devops_engineer": "DevOps 엔지니어로서"
+  },
+  "intents": {
+    "create": {
+      "name": "생성/개발",
+      "keywords": ["만들", "생성", "개발", "구현", "작성", "제작"],
+      "patterns": [
+        "{role} {language}로 {feature}을/를 개발해주세요. 주요 요구사항: {requirements}. {additional_specs}",
+        "{role} {purpose} 위한 {component}를 설계하고 구현해주세요. {tech_stack} 기반으로 작성해주세요.",
+        "{role} 다음 사양에 맞는 {module}을 작성해주세요: {specifications}. {constraints}"
+      ]
+    },
+    "analyze": {
+      "name": "분석/리뷰",
+      "keywords": ["분석", "리뷰", "평가", "검토", "진단", "조사"],
+      "patterns": [
+        "{role} 제공된 코드의 {aspects} 측면을 분석해주세요. {focus_areas}에 특히 집중해주시고, 구체적인 개선 사항을 제안해주세요.",
+        "{role} 다음 코드의 품질을 평가해주세요. {evaluation_criteria} 기준으로 분석하고, 문제점과 해결책을 제시해주세요.",
+        "{role} {component}의 아키텍처를 분석해주세요. {analysis_points}를 중심으로 검토하고 개선 제안을 해주세요."
+      ]
+    },
+    "fix": {
+      "name": "수정/디버깅",
+      "keywords": ["수정", "해결", "버그", "오류", "문제", "고쳐줘", "디버깅"],
+      "patterns": [
+        "{role} 다음 에러를 분석하고 해결책을 제안해주세요. 오류 메시지: {error_message}. 발생 환경: {context}. {additional_info}",
+        "{role} {problem} 버그를 수정해주세요. 원인: {cause}. 제약 조건: {constraints}. 테스트 케이스도 포함해주세요.",
+        "{role} 성능 문제를 해결해주세요. 병목 지점: {bottleneck}. 목표 성능: {target_performance}. 최적화 방안을 제시해주세요."
+      ]
+    },
+    "optimize": {
+      "name": "최적화",
+      "keywords": ["최적화", "개선", "향상", "효율", "성능", "리팩토링"],
+      "patterns": [
+        "{role} 다음 코드를 {optimization_type} 측면에서 최적화해주세요. 현재 성능: {current_performance}. 목표: {target_goal}.",
+        "{role} {component}의 성능을 개선해주세요. {metrics} 기준으로 측정하고 최적화된 코드를 제공해주세요.",
+        "{role} 리팩토링을 통해 코드 품질을 향상시켜주세요. {code_smells} 문제를 해결하고 {best_practices}를 적용해주세요."
+      ]
+    },
+    "design": {
+      "name": "설계",
+      "keywords": ["설계", "아키텍처", "구조", "계획", "방안"],
+      "patterns": [
+        "{role} {system}의 아키텍처를 설계해주세요. 요구사항: {requirements}. 제약 조건: {constraints}. 확장성과 유지보수성을 고려해주세요.",
+        "{role} {feature}을 위한 시스템 설계를 제안해주세요. {tech_stack} 기반으로 {scale} 규모를 지원해야 합니다.",
+        "{role} {api_type} API를 설계해주세요. {endpoints} 엔드포인트를 포함하고 {data_models} 데이터 모델을 정의해주세요."
+      ]
+    },
+    "test": {
+      "name": "테스트",
+      "keywords": ["테스트", "검증", "단위 테스트", "통합 테스트", "테스트 케이스"],
+      "patterns": [
+        "{role} {component}에 대한 {test_type} 테스트를 작성해주세요. {test_scenarios} 시나리오를 포함해주세요.",
+        "{role} 다음 코드를 테스트하는 방법을 제안해주세요. {coverage} 커버리지 목표: {target_coverage}.",
+        "{role} 테스트 전략을 수립해주세요. {application}의 {test_layers} 레이어를 어떻게 테스트할지 계획해주세요."
+      ]
+    }
+  },
+  "contexts": {
+    "code_review": "코드 리뷰를 통해 동료의 코드 개발을 돕고",
+    "production": "실제 프로덕션 환경에서 사용될 코드를 고려하여",
+    "team_collaboration": "팀 협업을 위해 다른 개발자가 이해하기 쉽도록",
+    "maintenance": "장기 유지보수를 고려하여",
+    "scalability": "확장성을 염두에 두고",
+    "security": "보안 취약점이 없도록",
+    "performance": "실행 성능을 최우선으로 고려하여",
+    "best_practices": "업계 표준 모범 사례를 따라"
+  },
+  "formats": {
+    "code_blocks": "코드 블록을 포함해서",
+    "step_by_step": "단계별로 설명해서",
+    "structured": "구조화된 형식으로",
+    "with_examples": "구체적인 코드 예시와 함께",
+    "with_benchmarks": "성능 벤치마크와 함께",
+    "documentation": "문서화된 형식으로"
+  },
+  "constraints": {
+    "no_hardcoding": "하드코딩하지 말고",
+    "error_handling": "적절한 에러 처리를 포함해서",
+    "testable": "테스트 가능한 코드로",
+    "readable": "가독성 높은 코드로",
+    "efficient": "효율적인 알고리즘으로",
+    "secure": "보안을 고려한 코드로",
+    "maintainable": "유지보수가 쉬운 구조로"
+  },
+  "examples": {
+    "simple_request": {
+      "original": "코드 리뷰 부탁드립니다",
+      "optimized": "시니어 개발자로서 다음 코드의 품질, 성능, 보안 측면에서 리뷰를 제공해주세요. 특히 성능 최적화와 잠재적 버그에 집중해주시고, 구체적인 개선 사항과 코드 예시를 포함해주세요."
+    },
+    "debug_request": {
+      "original": "버그 수정 좀 해주세요",
+      "optimized": "디버깅 전문가로서 다음 에러를 분석하고 해결책을 제안해주세요. 오류 메시지: TypeError in line 42. 발생 환경: React component rendering. 가능한 원인과 해결 단계를 구체적으로 설명해주세요."
+    },
+    "feature_development": {
+      "original": "로그인 기능 만들어줘",
+      "optimized": "시니어 개발자로서 React와 Node.js로 사용자 로그인 기능을 개발해주세요. 요구사항: 이메일/비밀번호 인증, JWT 토큰, 세션 관리. 보안을 고려하고 단위 테스트를 포함해주세요."
+    }
+  }
+}

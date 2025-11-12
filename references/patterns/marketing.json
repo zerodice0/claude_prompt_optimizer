@@ -1,0 +1,113 @@
+{
+  "domain": "marketing",
+  "description": "마케팅 관련 프롬프트 패턴",
+  "keywords": ["마케팅", "광고", "캠페인", "프로모션", "브랜드", "고객", "시장", "세일즈", "콘텐츠"],
+  "roles": {
+    "marketing_expert": "마케팅 전문가로서",
+    "marketing_strategist": "마케팅 전략가로서",
+    "copywriter": "전문 카피라이터로서",
+    "market_analyst": "마켓 분석가로서",
+    "brand_manager": "브랜드 매니저로서",
+    "content_marketer": "콘텐츠 마케터로서",
+    "digital_marketer": "디지털 마케터로서",
+    "growth_hacker": "성장 해커로서"
+  },
+  "intents": {
+    "create": {
+      "name": "콘텐츠/카피 생성",
+      "keywords": ["만들", "생성", "작성", "제작", "글", "문구"],
+      "patterns": [
+        "{role} {product}의 마케팅 문구를 작성해주세요. 대상: {target}. 목적: {purpose}. 톤앤매너: {tone}. 핵심 장점을 강조하고 행동 촉구를 포함해주세요.",
+        "{role} {platform}용 광고 카피를 제작해주세요. 제품: {product}. 타겟: {audience}. 메시지: {key_message}. {format}으로 작성해주세요.",
+        "{role} {campaign} 캠페인의 슬로건과 캐치프레이즈를 개발해주세요. 브랜드: {brand}. 차별점: {differentiation}. 목표: {goal}."
+      ]
+    },
+    "plan": {
+      "name": "전략/계획 수립",
+      "keywords": ["계획", "전략", "방안", "로드맵", "기획"],
+      "patterns": [
+        "{role} {product}의 마케팅 전략을 수립해주세요. 시장: {market}. 타겟: {target_audience}. 경쟁사: {competitors}. 구체적인 실행 계획을 포함해주세요.",
+        "{role} {campaign} 캠페인을 기획해주세요. 기간: {duration}. 예산: {budget}. 목표: {objectives}. 채널: {channels}. 성과 측정 지표도 포함해주세요.",
+        "{role} {brand} 브랜드의 포지셔닝 전략을 제안해주세요. 시장 분석: {market_analysis}. 타겟 고객: {target_customers}. 경쟁 우위: {competitive_advantage}."
+      ]
+    },
+    "analyze": {
+      "name": "시장/경쟁 분석",
+      "keywords": ["분석", "조사", "리서치", "평가", "진단"],
+      "patterns": [
+        "{role} {market} 시장을 분석해주세요. {analysis_focus}에 중점을 맞춰주세요. 데이터: {data_sources}. 주요 인사이트와 기회 요인을 도출해주세요.",
+        "{role} {competitors} 경쟁사 분석을 수행해주세요. {comparison_points} 기준으로 비교하고 우리의 우위와 개선점을 파악해주세요.",
+        "{role} {campaign} 캠페인의 성과를 분석해주세요. {metrics} 지표를 중심으로 평가하고 개선 제안을 해주세요. {time_period} 기간 데이터를 기반으로 해주세요."
+      ]
+    },
+    "optimize": {
+      "name": "최적화/개선",
+      "keywords": ["최적화", "개선", "향상", "효율", "성과"],
+      "patterns": [
+        "{role} {current_performance} 현재 성과를 개선할 방안을 제안해주세요. 목표: {target_performance}. {optimization_areas} 영역에 집중해주세요.",
+        "{role} {funnel} 퍼널을 최적화하는 방법을 알려주세요. 병목 지점: {bottlenecks}. 개선 목표: {improvement_goals}. 구체적인 실행 방안을 제시해주세요.",
+        "{role} {conversion_rate} 전환율을 높이는 전략을 수립해주세요. 현재 문제: {current_issues}. 타겟: {target_rate}. A/B 테스트 계획도 포함해주세요."
+      ]
+    },
+    "research": {
+      "name": "고객/시장 리서치",
+      "keywords": ["리서치", "조사", "설문", "인터뷰", "데이터"],
+      "patterns": [
+        "{role} {target_segment} 타겟 고객 segment를 리서치해주세요. {research_objectives} 목표를 중심으로 {research_method} 방법론을 제안해주세요.",
+        "{role} {customer_journey} 고객 여정을 분석해주세요. {touchpoints} 접점별로 경험을 파악하고 개선 기회를 도출해주세요.",
+        "{role} {market_trends} 시장 트렌드를 조사해주세요. {time_period} 기간의 변화를 분석하고 {industry} 업계에 미치는 영향을 예측해주세요."
+      ]
+    }
+  },
+  "contexts": {
+    "b2b": "B2B 비즈니스 환경을 고려하여",
+    "b2c": "B2C 소비자 심리를 바탕으로",
+    "startup": "스타트업의 제한된 자원을 고려하여",
+    "enterprise": "대기업의 복잡한 의사결정 구조를 고려하여",
+    "digital_first": "디지털 중심의 마케팅 환경에서",
+    "omnichannel": "옴니채널 경험을 제공하기 위해",
+    "data_driven": "데이터 기반의 의사결정을 위해",
+    "customer_centric": "고객 중심 관점에서"
+  },
+  "formats": {
+    "presentation": "프레젠테이션 형식으로",
+    "report": "보고서 형식으로",
+    "action_plan": "실행 계획 형식으로",
+    "spreadsheet": "스프레드시트 형식으로",
+    "infographic": "인포그래픽 형식으로",
+    "email_campaign": "이메일 캠페인 형식으로",
+    "social_media": "소셜 미디어 포스팅 형식으로"
+  },
+  "tones": {
+    "professional": "전문적인 톤으로",
+    "friendly": "친근한 톤으로",
+    "urgent": "긴급感 있는 톤으로",
+    "authoritative": "권위 있는 톤으로",
+    "emotional": "감성적인 톤으로",
+    "rational": "이성적인 톤으로",
+    "inspirational": "영감을 주는 톤으로",
+    "conversational": "대화적인 톤으로"
+  },
+  "metrics": {
+    "awareness": "인지도 (reach, impressions, brand mentions)",
+    "engagement": "참여도 (likes, comments, shares, time on page)",
+    "conversion": "전환율 (leads, sales, sign-ups)",
+    "retention": "유지율 (repeat purchases, churn rate)",
+    "advocacy": "추천 (NPS, reviews, referrals)",
+    "revenue": "수익 (ROI, CAC, LTV)"
+  },
+  "examples": {
+    "campaign_strategy": {
+      "original": "마케팅 캠페인 좀 만들어줘",
+      "optimized": "마케팅 전략가로서 AI 헬스케어 앱의 출시 캠페인을 기획해주세요. 타겟: 2030대 건강 관심층. 목표: 첫 달 가입자 1만명. 채널: 인스타그램, 블로그, 파트너십. 예산: 5천만원. 구체적인 실행 계획과 예상 효과를 포함해주세요."
+    },
+    "copywriting": {
+      "original": "제품 광고 문구 써줘",
+      "optimized": "전문 카피라이터로서 유기농 콜드브루 커피의 광고 문구를 작성해주세요. 대상: 건강한 라이프스타일 추구하는 직장인. 목적: 구매 유도. 톤앤매너: 신뢰감 있고 세련되게. 핵심 장점(100% 유기농, 저온 추출, 건강)을 강조하고 한정 특가 행사를 포함해주세요."
+    },
+    "market_analysis": {
+      "original": "시장 조사 좀 해줘",
+      "optimized": "마켓 분석가로서 한국 식물성 대체육 시장을 분석해주세요. 시장 규모, 성장률, 주요 플레이어, 소비자 트렌드에 중점을 맞춰주세요. 2020-2024년 데이터를 기반으로 미래 3년간의 시장 기회와 위협 요인을 예측해주세요."
+    }
+  }
+}

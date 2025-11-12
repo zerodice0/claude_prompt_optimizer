@@ -1,0 +1,114 @@
+{
+  "domain": "business",
+  "description": "비즈니스 관련 프롬프트 패턴",
+  "keywords": ["비즈니스", "보고서", "이메일", "프레젠테이션", "계획", "전략", "분석", "의사결정"],
+  "roles": {
+    "business_expert": "비즈니스 전문가로서",
+    "business_analyst": "비즈니스 분석가로서",
+    "strategy_consultant": "전략 컨설턴트로서",
+    "management_consultant": "경영 컨설턴트로서",
+    "project_manager": "프로젝트 매니저로서",
+    "executive": "경영진 관점에서",
+    "stakeholder": "이해관계자 관점에서",
+    "industry_expert": "업계 전문가로서"
+  },
+  "intents": {
+    "create": {
+      "name": "문서/콘텐츠 생성",
+      "keywords": ["만들", "생성", "작성", "제작", "준비"],
+      "patterns": [
+        "{role} {document_type} 문서를 작성해주세요. 목적: {purpose}. 대상: {audience}. 주요 내용: {content}. 형식: {format}. {additional_requirements}.",
+        "{role} {presentation_type} 발표 자료를 준비해주세요. 주제: {topic}. 대상: {audience}. 시간: {duration}. 목표: {objective}. {structure} 구조로 작성해주세요.",
+        "{role} {email_type} 이메일을 작성해주세요. 수신자: {recipient}. 목적: {purpose}. 긴급도: {urgency}. 요청 사항: {requests}. {attachment} 첨부파일 설명도 포함해주세요."
+      ]
+    },
+    "analyze": {
+      "name": "분석/평가",
+      "keywords": ["분석", "리뷰", "평가", "검토", "진단", "조사"],
+      "patterns": [
+        "{role} {business_area} 분석을 수행해주세요. 데이터: {data_source}. 분석 기준: {criteria}. {time_period} 기간 데이터를 기반으로 {insights} 주요 인사이트를 도출해주세요.",
+        "{role} {project} 프로젝트의 성과를 평가해주세요. {metrics} 지표를 중심으로 {success_factors} 성공 요인과 {challenges} 도전 과제를 파악해주세요.",
+        "{role} {market} 시장 기회를 분석해주세요. {market_size} 규모, {growth_rate} 성장률, {competition} 경쟁 환경을 고려하여 {recommendations} 구체적인 추천 사항을 제시해주세요."
+      ]
+    },
+    "plan": {
+      "name": "계획/전략 수립",
+      "keywords": ["계획", "전략", "방안", "로드맵", "기획"],
+      "patterns": [
+        "{role} {initiative} 이니셔티브의 실행 계획을 수립해주세요. 목표: {goals}. 기간: {timeline}. 예산: {budget}. 담당자: {stakeholders}. {risks} 위험 요인과 완화 계획도 포함해주세요.",
+        "{role} {organization} 조직의 {timeframe} 전략 로드맵을 제안해주세요. {vision} 비전을 달성하기 위한 {key_priorities} 우선순위와 {milestones} 주요 이정표를 설정해주세요.",
+        "{role} {department} 부서의 운영 계획을 수립해주세요. {objectives} 목표와 {kpi} 핵심 성과 지표를 바탕으로 {action_items} 실행 항목을 정의해주세요."
+      ]
+    },
+    "decide": {
+      "name": "의사결정 지원",
+      "keywords": ["결정", "선택", "판단", "추천", "조언"],
+      "patterns": [
+        "{role} {decision} 의사결정을 위한 분석을 제공해주세요. {options} 대안들을 {evaluation_criteria} 평가 기준으로 비교하고 {recommendation} 추천 사항을 제시해주세요.",
+        "{role} {problem} 문제 해결을 위한 최적의 방안을 제안해주세요. {constraints} 제약 조건과 {objectives} 목표를 고려하여 {pros_cons} 장단점을 분석해주세요.",
+        "{role} {investment} 투자 결정을 지원해주세요. {financial_analysis} 재무 분석과 {market_analysis} 시장 분석을 바탕으로 {roi} 수익률을 예측해주세요."
+      ]
+    },
+    "communicate": {
+      "name": "소통/보고",
+      "keywords": ["보고", "발표", "공유", "전달", "설명"],
+      "patterns": [
+        "{role} {stakeholder} 이해관계자에게 {progress} 진행 상황을 보고해주세요. {achievements} 성과와 {challenges} 현안을 포함하여 {next_steps} 다음 단계를 제안해주세요.",
+        "{role} {change} 변화 사항을 {affected_groups} 영향받는 그룹에게 효과적으로 전달하는 방법을 제안해주세요. {communication_channels} 채널과 {messaging} 메시징 전략을 고려해주세요.",
+        "{role} {results} 결과를 {executive_level} 경영진 레벨에 맞춰 요약해주세요. {key_insights} 핵심 인사이트와 {actionable_recommendations} 실행 가능한 추천 사항을 중심으로 구성해주세요."
+      ]
+    }
+  },
+  "contexts": {
+    "strategic": "전략적 관점에서",
+    "operational": "운영적 관점에서",
+    "financial": "재무적 관점에서",
+    "customer_centric": "고객 중심 관점에서",
+    "competitive": "경쟁 환경을 고려하여",
+    "regulatory": "규제 환경을 고려하여",
+    "technological": "기술 변화를 고려하여",
+    "sustainability": "지속가능성 관점에서"
+  },
+  "formats": {
+    "executive_summary": "경영진 요약 형식으로",
+    "detailed_report": "상세 보고서 형식으로",
+    "presentation_slides": "프레젠테이션 슬라이드 형식으로",
+    "email": "이메일 형식으로",
+    "memo": "메모 형식으로",
+    "proposal": "제안서 형식으로",
+    "action_plan": "실행 계획 형식으로",
+    "dashboard": "대시보드 형식으로"
+  },
+  "metrics": {
+    "financial": "재무 지표 (매출, 이익, ROI, 현금 흐름)",
+    "operational": "운영 지표 (생산성, 효율, 품질)",
+    "customer": "고객 지표 (만족도, 유지율, LTV)",
+    "employee": "직원 지표 (만족도, 생산성, 이직률)",
+    "market": "시장 지표 (점유율, 성장률, 브랜드 인지도)",
+    "strategic": "전략 지표 (목표 달성률, 성공 지표)"
+  },
+  "stakeholders": {
+    "executives": "경영진",
+    "managers": "관리자",
+    "employees": "직원",
+    "customers": "고객",
+    "investors": "투자자",
+    "partners": "파트너",
+    "suppliers": "공급업체",
+    "regulators": "규제 기관"
+  },
+  "examples": {
+    "business_proposal": {
+      "original": "프로젝트 제안서 좀 써줘",
+      "optimized": "전략 컨설턴트로서 중소 제조업체를 위한 업무 자동화 시스템 제안서를 작성해주세요. 고객사: OO산업. 문제점: 반복 작업 비효율과 인건비 상승. 해결책: RPA 기반 자동화 플랫폼. 예상 효과: 생산성 40% 향상, 월 500만원 비용 절감. 예산: 2억원. 실행 계획과 ROI를 포함한 상세 제안서 형식으로 정리해주세요."
+    },
+    "performance_review": {
+      "original": "성과 보고서 작성해줘",
+      "optimized": "비즈니스 분석가로서 2024년 상반기 마케팅 팀 성과 보고서를 작성해주세요. 목표 달성률: 리드 120%, 매출 95%. 주요 성과: 신규 채널 3개 오픈, CPC 15% 감소. 개선 필요: 전환율 저조. 하반기 계획: AI 기반 타겟팅 강화. 데이터 기반 구체적인 개선 방안을 제시해주세요."
+    },
+    "strategic_planning": {
+      "original": "사업 전략 좀 짜줘",
+      "optimized": "경영진 관점에서 글로벌 진출을 위한 3년 전략 로드맵을 수립해주세요. 현재: 내수 시장 70% 점유. 목표: 3년 내 동남아 시장 진출. 우선순위: 1차년 베트남, 2차년 말레이시아, 3차년 인도네시아. 주요 과제: 현지화, 파트너십, 규제 대응. 연간 목표와 KPI를 포함한 실행 계획을 제시해주세요."
+    }
+  }
+}
