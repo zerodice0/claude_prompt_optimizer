@@ -34,13 +34,36 @@ Claude 4 프롬프트 최적화 가이드를 기반으로 사용자 프롬프트
 
 ## 🚀 설치 방법
 
-### 방법 1: Claude Skills 마켓플레이스 (권장)
+이 프로젝트는 두 가지 방식으로 사용할 수 있습니다:
+1. **Claude Code Slash Commands** - 로컬 개발 및 즉시 사용
+2. **Claude Skills** - 마켓플레이스 배포 및 공유
+
+### 방법 1: Claude Code Slash Commands (로컬, 즉시 사용 가능)
+
+현재 디렉토리에서 바로 사용:
+
 ```bash
-# Claude에서 다음 명령어 실행
+# 저장소 클론
+git clone https://github.com/zerodice0/claude_prompt_optimizer.git
+cd claude_prompt_optimizer
+
+# Claude Code에서 slash command 사용
+/analyze-prompt "분석할 프롬프트"
+/optimize-prompt "최적화할 프롬프트"
+```
+
+**사용 가능한 Slash Commands**:
+- `/analyze-prompt` - 프롬프트 분석 및 7원칙 평가
+- `/optimize-prompt` - 프롬프트 자동 최적화 및 개선
+
+### 방법 2: Claude Skills (마켓플레이스, 준비 중)
+
+```bash
+# Claude에서 다음 명령어 실행 (향후 제공 예정)
 /skills install prompt-optimizer
 ```
 
-### 방법 2: 수동 설치
+### 방법 3: 수동 설치 (Skills)
 ```bash
 # ~/.claude/skills 디렉토리로 이동
 cd ~/.claude/skills
@@ -49,18 +72,46 @@ cd ~/.claude/skills
 git clone https://github.com/zerodice0/claude_prompt_optimizer.git
 ```
 
-### 방법 3: 현재 디렉토리에서 직접 사용
-```bash
-git clone https://github.com/zerodice0/claude_prompt_optimizer.git
-cd claude_prompt_optimizer
-```
-
 ## 📖 사용 방법
 
-### 기본 사용 (자동 최적화)
+### A. Claude Code Slash Commands 사용법
+
+#### 1. 프롬프트 분석
+```bash
+# 기본 분석
+/analyze-prompt "코드 리뷰를 부탁드립니다"
+
+# 도메인 지정 분석
+/analyze-prompt "블로그 글을 써줘" --domain=content
+```
+
+#### 2. 프롬프트 최적화
+```bash
+# 기본 최적화
+/optimize-prompt "API를 만들어줘"
+
+# 최적화 레벨 지정
+/optimize-prompt "데이터를 분석해줘" --optimization_level=aggressive
+```
+
+#### 3. Python API 직접 사용
+```python
+from scripts import analyze_prompt, optimize_prompt
+
+# 분석
+result = analyze_prompt("코드 리뷰를 부탁드립니다")
+print(result['summary'])
+
+# 최적화
+result = optimize_prompt("블로그 글을 써줘", domain="content")
+print(result['optimized_prompt'])
+```
+
+### B. Claude Skills 사용법 (자동 최적화)
+
 ```
 사용자: "코드 리뷰를 부탁드립니다"
-Claude: [자동으로 최적화된 프롬프트 제안]
+스킬: [자동으로 최적화된 프롬프트 제안 및 실행 선택지]
 ```
 
 ### 도메인 지정
@@ -88,11 +139,6 @@ Claude: [자동으로 최적화된 프롬프트 제안]
 
 # 적극적 최적화 (최대 효율)
 "분석해줘 --optimization_level=aggressive"
-```
-
-### 명시적 분석 요청
-```bash
-/analyze-prompt "분석할 프롬프트 내용"
 ```
 
 ## 💡 사용 예시

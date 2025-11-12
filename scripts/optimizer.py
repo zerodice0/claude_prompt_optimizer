@@ -199,7 +199,7 @@ class PromptOptimizer:
                 improvements.append("구조화된 형식 지정")
             elif analysis.complexity_level == "medium":
                 format_guide = "핵심 포인트별로 정리해서"
-                improvements.append "핵심 포인트별 정리"
+                improvements.append("핵심 포인트별 정리")
             else:
                 format_guide = "명확하고 간결하게"
                 improvements.append("간결한 형식 지정")
