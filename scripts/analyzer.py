@@ -89,12 +89,51 @@ class PromptAnalyzer:
             }
         }
 
-        # 도메인별 키워드
+        # 도메인별 키워드 (구조화된 가중치 시스템)
         self.domain_keywords = {
-            Domain.DEVELOPMENT: ["코드", "프로그래밍", "개발", "버그", "디버깅", "알고리즘", "아키텍처", "리뷰"],
-            Domain.MARKETING: ["마케팅", "광고", "캠페인", "프로모션", "브랜드", "고객", "시장", "세일즈"],
-            Domain.CONTENT: ["글", "블로그", "콘텐츠", "기사", "소셜", "미디어", "작성", "에세이"],
-            Domain.BUSINESS: ["비즈니스", "보고서", "이메일", "프레젠테이션", "계획", "전략", "분석", "의사결정"]
+            Domain.DEVELOPMENT: {
+                "simple": ["코드", "프로그래밍", "개발", "버그", "디버깅", "알고리즘", "아키텍처", "리뷰",
+                          "테스트", "배포", "빌드", "함수", "클래스", "API", "데이터베이스", "서버"],
+                "compound": ["release note", "릴리즈 노트", "릴리스 노트", "change log", "changelog", "변경 로그",
+                            "commit message", "커밋 메시지", "pull request", "PR", "코드 리뷰", "기술 문서",
+                            "API 문서", "API documentation", "git", "깃허브", "github"],
+                "weighted": {
+                    "release": 3.0,
+                    "commit": 3.0,
+                    "deploy": 2.5,
+                    "build": 2.0,
+                    "git": 2.5,
+                    "repository": 2.0,
+                    "version": 2.0
+                }
+            },
+            Domain.MARKETING: {
+                "simple": ["마케팅", "광고", "캠페인", "프로모션", "브랜드", "고객", "시장", "세일즈"],
+                "compound": ["광고 캠페인", "마케팅 전략", "소셜 미디어 마케팅", "이메일 마케팅"],
+                "weighted": {
+                    "캠페인": 2.5,
+                    "광고": 2.0,
+                    "홍보": 2.0
+                }
+            },
+            Domain.CONTENT: {
+                "simple": ["글", "블로그", "콘텐츠", "기사", "소셜", "미디어", "에세이", "뉴스레터"],
+                "compound": ["블로그 포스트", "소셜 미디어 포스트", "인스타그램 게시물", "트위터 트윗"],
+                "weighted": {
+                    "블로그": 2.0,
+                    "포스트": 1.5,
+                    "게시물": 1.5
+                }
+            },
+            Domain.BUSINESS: {
+                "simple": ["비즈니스", "보고서", "이메일", "프레젠테이션", "계획", "전략", "분석", "의사결정"],
+                "compound": ["사업 계획서", "비즈니스 보고서", "이메일 초안", "회의 안건"],
+                "weighted": {
+                    "보고서": 2.0,
+                    "계획서": 2.0,
+                    "전략": 1.5
+                }
+            }
         }
 
         # 의도 패턴
@@ -109,20 +148,71 @@ class PromptAnalyzer:
         }
 
     def detect_domain(self, prompt: str) -> Domain:
-        """프롬프트의 도메인 자동 감지"""
+        """프롬프트의 도메인 자동 감지 (가중치 기반)"""
         prompt_lower = prompt.lower()
-        domain_scores = {}
+        domain_scores = {domain: 0.0 for domain in self.domain_keywords.keys()}
 
-        for domain, keywords in self.domain_keywords.items():
-            score = sum(1 for keyword in keywords if keyword in prompt_lower)
-            domain_scores[domain] = score
+        for domain, keywords_dict in self.domain_keywords.items():
+            # Simple 키워드 (가중치 1.0)
+            if "simple" in keywords_dict:
+                simple_score = sum(1.0 for keyword in keywords_dict["simple"]
+                                 if keyword in prompt_lower)
+                domain_scores[domain] += simple_score
 
-        # 가장 높은 점수를 받은 도메인 선택
+            # Compound 키워드 (가중치 2.0)
+            if "compound" in keywords_dict:
+                compound_score = sum(2.0 for keyword in keywords_dict["compound"]
+                                   if keyword in prompt_lower)
+                domain_scores[domain] += compound_score
+
+            # Weighted 키워드 (개별 가중치)
+            if "weighted" in keywords_dict:
+                weighted_score = sum(weight for keyword, weight in keywords_dict["weighted"].items()
+                                   if keyword in prompt_lower)
+                domain_scores[domain] += weighted_score
+
+        # 최고 점수 도메인 선택
         if max(domain_scores.values()) == 0:
             return Domain.AUTO
 
         best_domain = max(domain_scores, key=domain_scores.get)
-        return best_domain if domain_scores[best_domain] > 0 else Domain.AUTO
+
+        # 신뢰도 임계값 적용 (최소 1.0 이상)
+        confidence_threshold = 1.0
+        if domain_scores[best_domain] >= confidence_threshold:
+            return best_domain
+        else:
+            return Domain.AUTO
+
+    def detect_domain_with_confidence(self, prompt: str) -> tuple:
+        """도메인 감지 + 확신도 반환"""
+        prompt_lower = prompt.lower()
+        domain_scores = {domain: 0.0 for domain in self.domain_keywords.keys()}
+
+        for domain, keywords_dict in self.domain_keywords.items():
+            if "simple" in keywords_dict:
+                simple_score = sum(1.0 for keyword in keywords_dict["simple"]
+                                 if keyword in prompt_lower)
+                domain_scores[domain] += simple_score
+
+            if "compound" in keywords_dict:
+                compound_score = sum(2.0 for keyword in keywords_dict["compound"]
+                                   if keyword in prompt_lower)
+                domain_scores[domain] += compound_score
+
+            if "weighted" in keywords_dict:
+                weighted_score = sum(weight for keyword, weight in keywords_dict["weighted"].items()
+                                   if keyword in prompt_lower)
+                domain_scores[domain] += weighted_score
+
+        total_score = sum(domain_scores.values())
+        if total_score == 0:
+            return Domain.AUTO, 0.0
+
+        best_domain = max(domain_scores, key=domain_scores.get)
+        confidence = domain_scores[best_domain] / total_score if total_score > 0 else 0.0
+
+        return best_domain, confidence
 
     def detect_intent(self, prompt: str) -> str:
         """프롬프트의 주요 의도 감지"""

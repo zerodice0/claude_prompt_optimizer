@@ -95,6 +95,50 @@ class TemplateManager:
                 example_usage="project_type=전자상거래, requirements=실시간 재고 관리, tech_stack=Microservices",
                 complexity="high"
             ),
+            Template(
+                id="dev_release_notes",
+                name="릴리즈 노트 작성",
+                domain="development",
+                intent="create",
+                template="기술 문서 전문가로서 {version} 버전의 릴리즈 노트를 작성해주세요. 새로운 기능: {new_features}, 버그 수정: {bug_fixes}, Breaking Changes: {breaking_changes}. 개발자와 사용자가 이해하기 쉽게 마크다운 형식으로 작성해주세요.",
+                variables=["version", "new_features", "bug_fixes", "breaking_changes"],
+                description="소프트웨어 릴리즈 노트 작성",
+                example_usage="version=v2.0.0, new_features=AI 기능 추가, bug_fixes=로그인 오류 수정",
+                complexity="medium"
+            ),
+            Template(
+                id="dev_commit_message",
+                name="커밋 메시지 작성",
+                domain="development",
+                intent="create",
+                template="Git 커밋 메시지를 Conventional Commits 형식으로 작성해주세요. 변경 유형: {type}, 범위: {scope}, 요약: {summary}, 상세 내용: {body}. 형식: type(scope): summary",
+                variables=["type", "scope", "summary", "body"],
+                description="Git 커밋 메시지 생성",
+                example_usage="type=feat, scope=auth, summary=소셜 로그인 추가",
+                complexity="low"
+            ),
+            Template(
+                id="dev_changelog",
+                name="변경 로그 작성",
+                domain="development",
+                intent="create",
+                template="프로젝트의 CHANGELOG.md를 작성해주세요. 버전: {version}, 날짜: {date}, 주요 변경사항: {changes}. Keep a Changelog 형식을 따르고, Added/Changed/Fixed/Removed 섹션으로 구분해주세요.",
+                variables=["version", "date", "changes"],
+                description="프로젝트 변경 로그 작성",
+                example_usage="version=1.0.1, date=2025-01-12, changes=버그 수정 및 문서 개선",
+                complexity="medium"
+            ),
+            Template(
+                id="dev_api_docs",
+                name="API 문서 작성",
+                domain="development",
+                intent="create",
+                template="API 문서 전문가로서 {endpoint} API의 문서를 작성해주세요. HTTP 메서드: {method}, 파라미터: {parameters}, 응답 형식: {response}, 예시 요청/응답을 포함하고 OpenAPI 형식으로 작성해주세요.",
+                variables=["endpoint", "method", "parameters", "response"],
+                description="RESTful API 문서 작성",
+                example_usage="endpoint=/users, method=POST, parameters=name, email",
+                complexity="medium"
+            ),
 
             # Marketing Templates
             Template(
@@ -208,24 +252,80 @@ class TemplateManager:
 
         return None
 
+    def find_best_template_semantic(self, user_input: str, domain: str, intent: str) -> Optional[Template]:
+        """의미 기반 템플릿 매칭 (특수 케이스 우선)"""
+
+        # 특수 케이스 패턴 매핑
+        special_cases = {
+            "release note": "dev_release_notes",
+            "릴리즈 노트": "dev_release_notes",
+            "릴리스 노트": "dev_release_notes",
+            "release notes": "dev_release_notes",
+            "commit message": "dev_commit_message",
+            "커밋 메시지": "dev_commit_message",
+            "git commit": "dev_commit_message",
+            "changelog": "dev_changelog",
+            "change log": "dev_changelog",
+            "변경 로그": "dev_changelog",
+            "변경사항": "dev_changelog",
+            "api documentation": "dev_api_docs",
+            "api docs": "dev_api_docs",
+            "API 문서": "dev_api_docs",
+            "code review": "code_review",
+            "코드 리뷰": "code_review",
+        }
+
+        user_input_lower = user_input.lower()
+
+        # 특수 케이스 우선 확인
+        for pattern, template_id in special_cases.items():
+            if pattern in user_input_lower:
+                template = self.get_template(template_id)
+                if template:
+                    return template
+
+        # 특수 케이스가 없으면 기존 로직으로 폴백
+        return self.find_best_template(domain, intent)
+
     def fill_template(self, template: Template, variables: Dict[str, str]) -> str:
-        """템플릿에 변수 값 채우기"""
+        """템플릿에 변수 값 채우기 (완전히 채워진 경우만)"""
         filled = template.template
 
         for var_name, var_value in variables.items():
             placeholder = "{" + var_name + "}"
             filled = filled.replace(placeholder, var_value)
 
-        # 채워지지 않은 변수가 있다면 안내 메시지 추가
+        # 채워지지 않은 변수 확인
         remaining_vars = []
         for var in template.variables:
             if "{" + var + "}" in filled:
                 remaining_vars.append(var)
 
+        # 변수가 남아있으면 None 반환 (불완전한 템플릿)
         if remaining_vars:
-            filled += f"\n\n필요한 정보: {', '.join(remaining_vars)}"
+            return None
 
         return filled
+
+    def fill_template_partial(self, template: Template, variables: Dict[str, str]) -> tuple:
+        """템플릿에 변수 값 부분적으로 채우기 + 누락된 변수 반환"""
+        filled = template.template
+
+        for var_name, var_value in variables.items():
+            placeholder = "{" + var_name + "}"
+            filled = filled.replace(placeholder, var_value)
+
+        # 채워지지 않은 변수 목록
+        remaining_vars = []
+        for var in template.variables:
+            if "{" + var + "}" in filled:
+                remaining_vars.append(var)
+
+        return filled, remaining_vars
+
+    def get_missing_variables(self, template: Template, variables: Dict[str, str]) -> List[str]:
+        """누락된 변수 목록 반환"""
+        return [var for var in template.variables if var not in variables or not variables[var]]
 
     def suggest_variables(self, template_id: str, user_input: str) -> Dict[str, str]:
         """사용자 입력 기반으로 변수 값 추천"""

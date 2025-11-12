@@ -153,11 +153,11 @@ class ClaudePromptOptimizer:
         if request.template_id:
             template = self.template_manager.get_template(request.template_id)
         else:
-            # 최적의 템플릿 추천
-            template = self.template_manager.find_best_template(
+            # 최적의 템플릿 추천 (의미 기반 매칭 우선)
+            template = self.template_manager.find_best_template_semantic(
+                request.prompt,
                 analysis.domain.value,
-                analysis.detected_intent,
-                analysis.complexity_level
+                analysis.detected_intent
             )
 
         if template:
@@ -172,7 +172,15 @@ class ClaudePromptOptimizer:
 
             # 템플릿 채우기
             filled_template = self.template_manager.fill_template(template, variables)
-            result["filled_template"] = filled_template
+
+            if filled_template is None:
+                # 변수가 완전히 채워지지 않은 경우 부분 채우기
+                partial_filled, missing_vars = self.template_manager.fill_template_partial(template, variables)
+                result["filled_template"] = partial_filled
+                result["missing_variables"] = missing_vars
+                result["recommendations"].append(f"누락된 변수: {', '.join(missing_vars)}")
+            else:
+                result["filled_template"] = filled_template
 
         else:
             # 템플릿을 찾지 못한 경우 추천 목록 제공
